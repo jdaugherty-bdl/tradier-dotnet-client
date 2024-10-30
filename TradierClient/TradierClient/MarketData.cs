@@ -48,9 +48,9 @@ namespace Tradier.Client
         /// <summary>
         /// Get expiration dates for a particular underlying
         /// </summary>
-        public async Task<Expirations> GetOptionExpirations(string symbol, bool? includeAllRoots = false, bool? strikes = false)
+        public async Task<ExpirationCollection> GetOptionExpirations(string symbol, bool? includeAllRoots = false, bool? strikes = false, bool? contractSize = false, bool? expirationType = false)
         {
-            var response = await _requests.GetRequest($"markets/options/expirations?symbol={symbol}&includeAllRoots={includeAllRoots}&strikes={strikes}");
+            var response = await _requests.GetRequest($"markets/options/expirations?symbol={symbol}&includeAllRoots={includeAllRoots}&strikes={strikes}&contractSize={contractSize}&expirationType={expirationType}");
             return JsonConvert.DeserializeObject<OptionExpirationsRootobject>(response).Expirations;
         }
 

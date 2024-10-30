@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Tradier.Client.Helpers;
+using static Tradier.Client.Models.General.GeneralEnumHolder;
 
 namespace Tradier.Client.Models.MarketData
 {
@@ -115,13 +116,13 @@ namespace Tradier.Client.Models.MarketData
         public int ContractSize { get; set; }
 
         [JsonProperty("expiration_date")]
-        public string ExpirationDate { get; set; }
+        public DateTime ExpirationDate { get; set; }
 
         [JsonProperty("expiration_type")]
         public string ExpirationType { get; set; }
 
         [JsonProperty("option_type")]
-        public string OptionType { get; set; }
+        public OptionType OptionType { get; set; }
 
         [JsonProperty("root_symbol")]
         public string RootSymbol { get; set; }

@@ -29,20 +29,20 @@ namespace Tradier.Client
         /// <summary>
         /// Place an order using the default account number to trade a single option 
         /// </summary>
-        public async Task<IOrder> PlaceOptionOrder(string symbol, string optionSymbol, string side, int quantity, string type, string duration, double? price = null, double? stop = null, bool preview = false)
+        public async Task<IOrder> PlaceOptionOrder(string symbol, string optionSymbol, string side, int quantity, string type, string duration, double? price = null, double? stop = null, bool preview = false, string tag = null)
         {
             if (string.IsNullOrEmpty(_defaultAccountNumber))
             {
                 throw new MissingAccountNumberException("The default account number was not defined.");
             }
 
-            return await PlaceOptionOrder(_defaultAccountNumber, symbol, optionSymbol, side, quantity, type, duration, price, stop, preview);
+            return await PlaceOptionOrder(_defaultAccountNumber, symbol, optionSymbol, side, quantity, type, duration, price, stop, preview, tag);
         }
 
         /// <summary>
         /// Place an order to trade a single option
         /// </summary>
-        public async Task<IOrder> PlaceOptionOrder(string accountNumber, string symbol, string optionSymbol, string side, int quantity, string type, string duration, double? price = null, double? stop = null, bool preview = false)
+        public async Task<IOrder> PlaceOptionOrder(string accountNumber, string symbol, string optionSymbol, string side, int quantity, string type, string duration, double? price = null, double? stop = null, bool preview = false, string tag = null)
         {
             var data = new Dictionary<string, string>
             {
@@ -55,7 +55,8 @@ namespace Tradier.Client
                 { "duration", duration },
                 { "price", price.ToString() },
                 { "stop", stop.ToString() },
-                { "preview", preview.ToString() }
+                { "tag", tag },
+                { "preview", preview.ToString().ToLower() }
             };
 
             var response = await _requests.PostRequest($"accounts/{accountNumber}/orders", data);
