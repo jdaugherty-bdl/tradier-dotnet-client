@@ -3,16 +3,18 @@ using System;
 
 namespace Tradier.Client.Models.Trading
 {
-    public class OrderPreviewResponseRootobject
-    {
-        [JsonProperty("order")]
-        public OrderPreviewResponse OrderPreviewResponse { get; set; }
-    }
-
     public class OrderPreviewResponse : IOrder
     {
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
         [JsonProperty("status")]
         public string Status { get; set; }
+
+        public bool IsSuccessStatusCode => Status == "ok";
+
+        [JsonProperty("partner_id")]
+        public string PartnerId { get; set; }
 
         [JsonProperty("commission")]
         public float? Commision { get; set; }

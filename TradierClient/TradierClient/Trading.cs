@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Tradier.Client.Exceptions;
 using Tradier.Client.Helpers;
 using Tradier.Client.Models.Trading;
+using static Tradier.Client.Models.General.GeneralEnumHolder;
 
 // ReSharper disable once CheckNamespace
 namespace Tradier.Client
@@ -67,28 +68,32 @@ namespace Tradier.Client
         /// <summary>
         /// Place a multileg order using the default account number with up to 4 legs 
         /// </summary>
-        public async Task<IOrder> PlaceMultilegOrder(string symbol, string type, string duration, List<(string, string, int)> legs, double? price = null, bool preview = false)
+        public async Task<IOrder> PlaceMultilegOrder(string symbol, OrderType type, OrderDuration duration, List<(string, string, int)> legs, double? price = null, bool preview = false, string tag = null)
         {
             if (string.IsNullOrEmpty(_defaultAccountNumber))
             {
                 throw new MissingAccountNumberException("The default account number was not defined.");
             }
 
-            return await PlaceMultilegOrder(_defaultAccountNumber, symbol, type, duration, legs, price, preview);
+            return await PlaceMultilegOrder(_defaultAccountNumber, symbol, type, duration, legs, price, preview, tag);
         }
 
         /// <summary>
         /// Place a multileg order with up to 4 legs
         /// </summary>
-        public async Task<IOrder> PlaceMultilegOrder(string accountNumber, string symbol, string type, string duration, List<(string, string, int)> legs, double? price = null, bool preview = false)
+        public async Task<IOrder> PlaceMultilegOrder(string accountNumber, string symbol, OrderType type, OrderDuration duration, List<(string, string, int)> legs, double? price = null, bool preview = false, string tag = null)
         {
+            var typeValue = JsonConvert.DeserializeObject<string>(JsonConvert.SerializeObject(type));
+            var durationValue = JsonConvert.DeserializeObject<string>(JsonConvert.SerializeObject(duration));
+
             var data = new Dictionary<string, string>
             {
                 { "class", "multileg" },
                 { "symbol", symbol },
-                { "type", type },
-                { "duration", duration },
-                { "price", price.ToString() }
+                { "type", typeValue },
+                { "duration", durationValue },
+                { "price", price.ToString() },
+                { "tag", tag }
             };
 
             int index = 0;

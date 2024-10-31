@@ -3,12 +3,6 @@ using System;
 
 namespace Tradier.Client.Models.Trading
 {
-    public class OrderResponseRootobject
-    {
-        [JsonProperty("order")]
-        public OrderReponse OrderReponse { get; set; }
-    }
-
     public class OrderReponse : IOrder
     {
         [JsonProperty("id")]
@@ -19,5 +13,7 @@ namespace Tradier.Client.Models.Trading
 
         [JsonProperty("partner_id")]
         public string PartnerId { get; set; }
+
+        public bool IsSuccessStatusCode => Status == "ok";
     }
 }
