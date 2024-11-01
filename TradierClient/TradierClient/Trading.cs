@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -83,8 +84,8 @@ namespace Tradier.Client
         /// </summary>
         public async Task<IOrder> PlaceMultilegOrder(string accountNumber, string symbol, OrderType type, OrderDuration duration, List<(string, string, int)> legs, double? price = null, bool preview = false, string tag = null)
         {
-            var typeValue = JsonConvert.DeserializeObject<string>(JsonConvert.SerializeObject(type));
-            var durationValue = JsonConvert.DeserializeObject<string>(JsonConvert.SerializeObject(duration));
+            var typeValue = JsonConvert.DeserializeObject<string>(JsonConvert.SerializeObject(type, new StringEnumConverter()));
+            var durationValue = JsonConvert.DeserializeObject<string>(JsonConvert.SerializeObject(duration, new StringEnumConverter()));
 
             var data = new Dictionary<string, string>
             {
