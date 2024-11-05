@@ -7,6 +7,8 @@ namespace Tradier.Client.Models.Account
 {
     public class Position
     {
+        public int Index { get; set; }
+
         [JsonProperty("cost_basis")]
         public float CostBasis { get; set; }
 

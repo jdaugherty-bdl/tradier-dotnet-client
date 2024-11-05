@@ -8,6 +8,8 @@ namespace Tradier.Client.Models.Account
 {
     public class Order
     {
+        public int Index { get; set; }
+
         [JsonProperty("id")]
         public int Id { get; set; }
 
