@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using static Tradier.Client.Models.General.GeneralEnumHolder;
 
 namespace Tradier.Client.Models.Trading
 {
@@ -32,13 +33,13 @@ namespace Tradier.Client.Models.Trading
         public int? Quantity { get; set; }
 
         [JsonProperty("side")]
-        public string Side { get; set; }
+        public OrderInstruction Side { get; set; }
 
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public OrderType Type { get; set; }
 
         [JsonProperty("duration")]
-        public string Duration { get; set; }
+        public OrderDuration Duration { get; set; }
 
         [JsonProperty("result")]
         public bool? Result { get; set; }
@@ -48,12 +49,18 @@ namespace Tradier.Client.Models.Trading
 
         [JsonProperty("margin_change")]
         public float? MarginChange { get; set; }
+        
+        [JsonProperty("option_requirement")]
+        public float? OptionRequirement { get; set; }
 
         [JsonProperty("request_date")]
         public DateTime? RequestDate { get; set; }
 
         [JsonProperty("extended_hours")]
         public bool? ExtendedHours { get; set; }
+
+        [JsonProperty("option_symbol")]
+        public string OptionSymbol { get; set; }
 
         [JsonProperty("class")]
         public string ClassOrder { get; set; }
