@@ -23,5 +23,7 @@ namespace Tradier.Client.Models.Account
 
         [JsonProperty("symbol")]
         public string Symbol { get; set; }
+
+        public float Profit { get; set; }
     }
 }
