@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Tradier.Client.Exceptions;
 using Tradier.Client.Helpers;
 using Tradier.Client.Models.Account;
+using static Tradier.Client.Models.General.GeneralEnumHolder;
 
 // ReSharper disable once CheckNamespace
 namespace Tradier.Client
@@ -69,22 +72,39 @@ namespace Tradier.Client
         /// <summary>
         /// Get historical activity for the default account
         /// </summary>
-        public async Task<History> GetHistory(int page = 1, int limitPerPage = 25)
+        public async Task<History> GetHistory(int page = 1, int limitPerPage = 25, ActivityType activityType = ActivityType.All, DateTime? start = null, DateTime? end = null, string? symbol = null, bool? exactMatch = null)
         {
             if (string.IsNullOrEmpty(_defaultAccountNumber))
             {
                 throw new MissingAccountNumberException("The default account number was not defined.");
             }
 
-            return await GetHistory(_defaultAccountNumber, page, limitPerPage);
+            return await GetHistory(_defaultAccountNumber, page, limitPerPage, activityType: activityType, start: start, end: end, symbol: symbol, exactMatch: exactMatch);
         }
 
         /// <summary>
         /// Get historical activity for an account
         /// </summary>
-        public async Task<History> GetHistory(string accountNumber, int page = 1, int limitPerPage = 25)
+        public async Task<History> GetHistory(string accountNumber, int page = 1, int limitPerPage = 25, ActivityType activityType = ActivityType.All, DateTime? start = null, DateTime? end = null, string? symbol = null, bool? exactMatch = null)
         {
-            var response = await _requests.GetRequest($"accounts/{accountNumber}/history?page={page}&limit={limitPerPage}");
+            var url = $"accounts/{accountNumber}/history?page={page}&limit={limitPerPage}";
+
+            if (activityType != ActivityType.All)
+                url += $"&type={JsonConvert.DeserializeObject<string>(JsonConvert.SerializeObject(activityType, new StringEnumConverter()))}";
+
+            if (start != null)
+                url += $"&start={start:yyyy-MM-dd}";
+
+            if (end != null)
+                url += $"&end={end:yyyy-MM-dd}";
+
+            if (!string.IsNullOrEmpty(symbol))
+                url += $"&symbol={symbol}";
+
+            if (exactMatch != null)
+                url += $"&exact={exactMatch.ToString().ToLowerInvariant()}";
+
+            var response = await _requests.GetRequest(url);
             return JsonConvert.DeserializeObject<HistoryRootobject>(response).History;
         }
 
