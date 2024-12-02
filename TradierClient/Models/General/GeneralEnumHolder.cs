@@ -78,6 +78,35 @@ namespace Tradier.Client.Models.General
             Multileg
         }
 
+        public enum ActivityType
+        {
+            All,
+            [EnumMember(Value = "trade")]
+            Trade,
+            [EnumMember(Value = "option")]
+            Option,
+            [EnumMember(Value = "ach")]
+            ACH,
+            [EnumMember(Value = "wire")]
+            Wire,
+            [EnumMember(Value = "dividend")]
+            Dividend,
+            [EnumMember(Value = "fee")]
+            Fee,
+            [EnumMember(Value = "tax")]
+            Tax,
+            [EnumMember(Value = "journal")]
+            Journal,
+            [EnumMember(Value = "check")]
+            Check,
+            [EnumMember(Value = "transfer")]
+            Transfer,
+            [EnumMember(Value = "adjustment")]
+            Adjustment,
+            [EnumMember(Value = "interest")]
+            Interest
+        }
+
         public enum OrderStrategy
         {
             None,
