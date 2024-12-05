@@ -25,5 +25,6 @@ namespace Tradier.Client.Models.Account
         public string Symbol { get; set; }
 
         public float Profit { get; set; }
+        public DateTime ExpirationDate { get; set; }
     }
 }
