@@ -94,7 +94,8 @@ namespace Tradier.Client
                 { "type", typeValue },
                 { "duration", durationValue },
                 { "price", price.ToString() },
-                { "tag", tag }
+                { "tag", tag },
+                { "preview", preview.ToString().ToLower() }
             };
 
             int index = 0;
