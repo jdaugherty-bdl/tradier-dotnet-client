@@ -15,5 +15,6 @@ namespace Tradier.Client.Models.Trading
         public string PartnerId { get; set; }
 
         public bool IsSuccessStatusCode => Status == "ok";
+        public DateTime OrderTime { get; private set; } = DateTime.Now;
     }
 }

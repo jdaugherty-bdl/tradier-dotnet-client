@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace Tradier.Client.Models.Trading
 {
@@ -12,6 +13,7 @@ namespace Tradier.Client.Models.Trading
         public string PartnerId { get; set; }
 
         public bool IsSuccessStatusCode { get; }
+        public DateTime OrderTime { get; }
     }
 
 }
