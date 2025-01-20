@@ -13,7 +13,7 @@ namespace Tradier.Client.Models.Trading
         public string Status { get; set; }
 
         public bool IsSuccessStatusCode => Status == "ok";
-        public DateTime OrderTime { get; private set; } = DateTime.Now;
+        public DateTime OrderTime { get; set; }
 
         [JsonProperty("partner_id")]
         public string PartnerId { get; set; }
