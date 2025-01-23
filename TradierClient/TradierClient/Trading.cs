@@ -385,11 +385,27 @@ namespace Tradier.Client
         {
             if (preview)
             {
-                return JsonConvert.DeserializeObject<OrderPreviewResponseRootobject>(response).OrderPreviewResponse;
+                var previewResponse = JsonConvert.DeserializeObject<OrderPreviewResponseRootobject>(response);
+
+                if (previewResponse.OrderPreviewResponse == null)
+                    previewResponse.OrderPreviewResponse = new OrderPreviewResponse();
+
+                if (previewResponse.Errors != null)
+                    previewResponse.OrderPreviewResponse.ErrorMessage = previewResponse.Errors?.Error;
+
+                return previewResponse.OrderPreviewResponse;
             }
             else
             {
-                return JsonConvert.DeserializeObject<OrderResponseRootobject>(response).OrderReponse;
+                var orderResponse = JsonConvert.DeserializeObject<OrderResponseRootobject>(response);
+
+                if (orderResponse.OrderReponse == null)
+                    orderResponse.OrderReponse = new OrderReponse();
+
+                if (orderResponse.Errors != null)
+                    orderResponse.OrderReponse.ErrorMessage = orderResponse.Errors?.Error;
+
+                return orderResponse.OrderReponse;
             }
         }
     }

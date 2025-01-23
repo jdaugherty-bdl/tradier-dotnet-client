@@ -71,5 +71,7 @@ namespace Tradier.Client.Models.Trading
 
         [JsonProperty("day_trades")]
         public int? DayTrades { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }
