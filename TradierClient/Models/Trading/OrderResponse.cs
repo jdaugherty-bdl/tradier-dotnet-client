@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using static Tradier.Client.Models.General.GeneralEnumHolder;
 
 namespace Tradier.Client.Models.Trading
 {
@@ -17,5 +18,9 @@ namespace Tradier.Client.Models.Trading
         public bool IsSuccessStatusCode => Status == "ok";
         public DateTime OrderTime { get; set; }
         public string ErrorMessage { get; set; }
+        public string OptionSymbol { get; set; }
+        public OrderInstruction Side { get; set; }
+        public OrderType Type { get; set; }
+        public OrderDuration Duration { get; set; }
     }
 }
